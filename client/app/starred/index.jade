@@ -1,0 +1,22 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  .row
+    .col-lg-12
+      a.btn.btn-warning.pull-right(ng-click="updateTwits()") Update data
+      h1.page-header(ng-show="starred") Starred Twits ({{starred.length}}):
+      h1.page-header(ng-hide="starred") Loading...
+  .row
+    .col-lg-12
+      table.table.table-striped
+        tr(ng-repeat='item in starred track by $index')
+          td {{::$index + 1}}
+          td(ng-bind-html="item.twit.text")
+          td
+            .btn.btn-danger(ng-click="deleteTwit(item)")
+              i.fa.fa-star
+
+footer.footer
+  .container
+    p
+      | &copy; wegorelax
