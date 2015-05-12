@@ -6,12 +6,19 @@ div(ng-include='"components/navbar/navbar.html"')
       a.btn.btn-warning.pull-right(ng-click="updateTwits()") Update twits
       h1.page-header(ng-show="twits") Twits ({{twits.search_metadata.count}}):
       h1.page-header(ng-hide="twits") Loading...
-  .row
+  .row(ng-if="twits")
     .col-lg-12
       table.table.table-striped
-        tr(ng-repeat='twit in twits.statuses track by $index')
+        tr
+          th #
+          th twit
+          th date time
+          th action
+
+        tr(ng-repeat='twit in twits.statuses | orderBy: "created_at":true')
           td {{::$index + 1}}
           td(ng-bind-html="twit.text")
+          td {{twit.created_at}}
           td
             .btn.btn-success(ng-hide="twit.starred", ng-click="storeTwit(twit)")
               i.fa.fa-star
